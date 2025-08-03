@@ -25,9 +25,9 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build gems
+# Install packages needed to build gems and Node.js
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config nodejs npm && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -39,14 +39,23 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
+# Install Node.js dependencies and build JavaScript assets
+RUN npm install -g yarn && \
+    yarn install && \
+    yarn build
+
+# Copy built assets to public directory for static file serving
+RUN mkdir -p public/assets/builds && \
+    cp app/assets/builds/application.js public/assets/builds/ && \
+    cp app/assets/builds/application.js.map public/assets/builds/
+
+# Create database.yml file (added to ensure it exists in the image)
+RUN echo 'production:' > config/database.yml && \
+    echo '  adapter: postgresql' >> config/database.yml && \
+    echo '  url: <%= ENV["DATABASE_URL"] %>' >> config/database.yml
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-
 
 # Final stage for app image
 FROM base

@@ -21,6 +21,8 @@ module Amenitiz
     config.session_store :cookie_store, key: '_amenitiz_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
+
+    config.assets.paths << Rails.root.join("app", "assets", "builds")
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
