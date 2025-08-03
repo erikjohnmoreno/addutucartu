@@ -1,0 +1,122 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules/
+yarn-error.log
+npm-debug.log*
+
+# Rails
+*.log
+*.sqlite3
+*.sqlite3-*
+*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/config/credentials/*.key
+
+# Ignore application configuration
+/config/application.yml
+/config/database.yml
+
+# Ignore environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore build artifacts
+/public/assets
+/public/packs
+/public/packs-test
+/public/assets/builds
+/app/assets/builds/*.js
+/app/assets/builds/*.js.map
+
+# Ignore test coverage
+/coverage/
+
+# Ignore database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore bundler
+/.bundle/
+/vendor/bundle
+/vendor/
+
+# Ignore Spring
+/spring/
+
+# Ignore RSpec
+.rspec_status
+
+# Ignore Brakeman
+brakeman.html
+
+# Ignore RuboCop
+.rubocop_todo.yml
+
+# Ignore database dumps
+*.dump
+
+# Ignore local configuration
+config/local_env.yml
+
+# Ignore lock files (except Gemfile.lock and yarn.lock which should be tracked)
+*.lock
+!Gemfile.lock
+!yarn.lock
+
+# Ignore compiled assets
+/app/assets/builds/
+
+# Ignore cache files
+.cache/
+*.cache
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Ignore local development files
+.local/ 
